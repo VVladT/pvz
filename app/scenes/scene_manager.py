@@ -21,7 +21,7 @@ class SceneManager:
         self.scenes[level_name] = LevelScene(self.spritesheet, store, board)
 
     def set_scene(self, scene_name):
-        pygame.mixer.music.load("assets/music/grasswalk.mp3")
+        pygame.mixer.music.load("assets/music/loonboon.mp3")
         pygame.mixer.music.play(-1)
         self.current_scene = self.scenes[scene_name]
         self.current_scene.on_enter()
