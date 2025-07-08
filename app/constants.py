@@ -1,6 +1,6 @@
 VIRTUAL_DIMENSION = (128, 128)
-WINDOW_DIMENSION = (512, 512)
-SCALE_FACTOR = 4
+WINDOW_DIMENSION = (640, 640)
+SCALE_FACTOR = 5
 TILE_SIZE = 14
 
 BOARD_COLOR = (0, 228, 54)
@@ -42,7 +42,7 @@ SPRITES = {
             "size": (7,7)
         },
         "wallnut": {
-            "frames": [(0,62)],
+            "frames": [(0,61)],
             "size": (7,7)
         }
     },

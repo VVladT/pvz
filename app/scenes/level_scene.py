@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from app.constants import SCALE_FACTOR, SPRITES
@@ -27,7 +29,7 @@ class LevelScene(Scene):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 self.store.selected_index = None
