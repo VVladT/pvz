@@ -1,3 +1,5 @@
+import random
+
 from app.constants import SPRITES, TILE_SIZE
 from app.entities.sprite import Sprite
 import pygame
@@ -40,9 +42,18 @@ class Board:
             for col in range(self.cols):
                 plant = self.grid[row][col]
                 if plant is not None:
-                    if plant.type == "offensive" or plant.type == "sun_producer":
+                    if plant.type == "offensive":
                         if self.timer >= .4:
-                            plant.update_state("idle")
+                            if random.random() < 0.5:
+                                plant.update_state("shooting")
+                            else:
+                                plant.update_state("idle")
+                    if plant.type == "sun_producer":
+                        if self.timer >= .4:
+                            if random.random() < 0.15:
+                                plant.update_state("producing")
+                            else:
+                                plant.update_state("idle")
                     if plant.type == "defensive":
                         plant.update_state("full")
                     if plant.type == "instantaneous":

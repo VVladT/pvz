@@ -29,4 +29,6 @@ class SunProducerPlant(Plant):
     def draw(self, surface, pos):
         if self.state == "idle":
             self.idle_sprites[self.idle_index].draw(surface, pos)
-        #self.shooting.draw(surface, pos)
+
+        if self.state == "producing":
+            self.producing.draw(surface, pos)
