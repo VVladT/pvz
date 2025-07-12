@@ -45,9 +45,10 @@ class Board:
                     if plant.type == "offensive":
                         if self.timer >= .4:
                             if random.random() < 0.5:
-                                plant.update_state("shooting")
+                                plant.shoot([col * TILE_SIZE + self.x + 5, row * TILE_SIZE + self.y + 1])
+                                plant.update_state("shooting",dt)
                             else:
-                                plant.update_state("idle")
+                                plant.update_state("idle",dt)
                     if plant.type == "sun_producer":
                         if self.timer >= .4:
                             if random.random() < 0.15:

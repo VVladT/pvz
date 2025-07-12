@@ -78,7 +78,8 @@ SPRITES = {
             "idle": {
                 "frames": [(8,0), (8,13)],
                 "size": (11,13)
-            }
+            },
+            "projectile": "pea"
         },
         "sunflower": {
             "type": "sun_producer",
