@@ -1,6 +1,6 @@
 import pygame
 
-from app.constants import SCALE_FACTOR
+from app.core.constants import SCALE_FACTOR
 from app.entities.sprite import Sprite
 
 

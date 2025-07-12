@@ -4,10 +4,10 @@ from app.entities.sprite import Sprite
 
 
 class Store:
-    def __init__(self, spritesheet, items=None, pos=(2, 2), slot_size=(13, 20), padding=1, margin=(2,1)):
+    def __init__(self, context, items=None, pos=(2, 2), slot_size=(13, 20), padding=1, margin=(2,1)):
         if items is None:
             items = []
-        self.spritesheet = spritesheet
+        self.context = context
         self.items = items[:8] + [None] * (8 - len(items))
         self.pos = (pos[0] + margin[0], pos[1] + margin[1])
         self.slot_size = slot_size
@@ -36,11 +36,13 @@ class Store:
         for i, slot in enumerate(self.slots):
             if self.items[i] is not None and slot.collidepoint(mouse_pos):
                 self.hover_index = i
+                break
 
     def update_select(self, mouse_pos):
         for i, slot in enumerate(self.slots):
             if self.items[i] is not None and slot.collidepoint(mouse_pos):
                 self.selected_index = i
+                break
 
     def get_item(self):
         if self.selected_index is not None:
@@ -59,9 +61,11 @@ class Store:
         for i, slot in enumerate(self.slots):
             if self.hover_index == i:
                 pygame.draw.rect(surface, (255, 255, 255), slot.inflate(2, 2), 3, border_radius=3)
+                self.context.mouse.set_state("pointer")
 
             if self.selected_index == i:
                 pygame.draw.rect(surface, (255, 255, 0), slot.inflate(2, 2), 3, border_radius=3)
+                self.context.mouse.set_state("selected")
 
             item = self.items[i]
             color = (123, 37, 83) if item is None else (255, 204, 170)

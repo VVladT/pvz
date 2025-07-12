@@ -1,6 +1,6 @@
 import random
 
-from app.constants import SPRITES, TILE_SIZE
+from app.core.constants import SPRITES, TILE_SIZE
 from app.entities.sprite import Sprite
 import pygame
 

@@ -2,10 +2,9 @@ import sys
 
 import pygame
 
-from app.constants import SCALE_FACTOR, SPRITES
+from app.core.constants import SCALE_FACTOR, SPRITES
 from app.entities.plants.plant_factory import PlantFactory
 from app.scenes.scene import Scene
-from app.ui.mouse import Mouse
 
 
 class LevelScene(Scene):

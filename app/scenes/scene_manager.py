@@ -1,24 +1,24 @@
 import pygame.mixer
 
-from app.constants import LEVELS, SPRITES
+from app.core.constants import LEVELS, SPRITES
 from app.scenes.board import Board
 from app.scenes.level_scene import LevelScene
 from app.ui.store import Store, Item
 
 
 class SceneManager:
-    def __init__(self, spritesheet):
-        self.spritesheet = spritesheet
+    def __init__(self, context):
+        self.context = context
         self.scenes = {}
         self.current_scene = None
 
     def add_level(self, level_name):
-        store = Store(self.spritesheet)
-        board = Board(self.spritesheet)
+        store = Store(self.context)
+        board = Board(self.context.spritesheet)
         for item in LEVELS[level_name]["store_items"]:
-            store.add_item(Item(self.spritesheet, item["type"], item["price"], SPRITES["store_icons"][item["type"]]))
+            store.add_item(Item(self.context.spritesheet, item["type"], item["price"], SPRITES["store_icons"][item["type"]]))
         store.create_slots()
-        self.scenes[level_name] = LevelScene(self.spritesheet, store, board)
+        self.scenes[level_name] = LevelScene(self.context.spritesheet, store, board)
 
     def set_scene(self, scene_name):
         pygame.mixer.music.load("assets/music/loonboon.mp3")

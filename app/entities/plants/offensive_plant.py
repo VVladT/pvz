@@ -1,4 +1,4 @@
-from app.constants import SPRITES
+from app.core.constants import SPRITES
 from app.entities.plants.plant import Plant
 from app.entities.projectile import Projectile
 from app.entities.sprite import Sprite
