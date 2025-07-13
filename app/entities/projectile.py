@@ -9,7 +9,7 @@ class Projectile:
         self.pos = pos
 
     def update(self, dt):
-        self.pos[0] += 0.1 // dt
+        self.pos[0] += 400 * dt
 
     def draw(self, surface):
         self.sprite.draw(surface, self.pos)

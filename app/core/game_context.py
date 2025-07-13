@@ -23,13 +23,13 @@ class GameContext:
         self.scene_manager.add_level("level_3")
         self.scene_manager.set_scene("level_3")
 
-        # Mouse personalizado
+        # Mouse
         self.mouse = Mouse(SPRITES["mouse"], self.spritesheet)
         self.mouse.set_state("normal")
         pygame.mouse.set_visible(False)
 
         # Entidades
-        self.board = Board(self.spritesheet)
+        self.board = Board(self)
         self.projectiles = []
         self.enemies = []
 

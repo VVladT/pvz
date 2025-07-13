@@ -14,7 +14,7 @@ class SceneManager:
 
     def add_level(self, level_name):
         store = Store(self.context)
-        board = Board(self.context.spritesheet)
+        board = Board(self.context)
         for item in LEVELS[level_name]["store_items"]:
             store.add_item(Item(self.context.spritesheet, item["type"], item["price"], SPRITES["store_icons"][item["type"]]))
         store.create_slots()

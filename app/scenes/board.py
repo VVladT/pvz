@@ -7,13 +7,13 @@ import pygame
 class Board:
     timer = 0
 
-    def __init__(self, spritesheet, dimension=(8,5), pos=(10,32)):
+    def __init__(self, context, dimension=(8,5), pos=(10,32)):
         self.cols = dimension[0]
         self.rows = dimension[1]
         self.x = pos[0]
         self.y = pos[1]
         self.tile_size = TILE_SIZE
-        self.spritesheet = spritesheet
+        self.context = context
         self.grid = [[None for _ in range(self.cols)] for _ in range(self.rows)]
         self.hover_pos = None
         self.variants = []
@@ -22,7 +22,7 @@ class Board:
                 "frames": [pos],
                 "size": SPRITES["grass"]["size"]
             }
-            self.variants.append(Sprite(data["frames"][0], data["size"], spritesheet))
+            self.variants.append(Sprite(data["frames"][0], data["size"], context.spritesheet))
 
     def update_hover(self, mouse_pos):
         if mouse_pos is None:
