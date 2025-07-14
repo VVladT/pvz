@@ -1,13 +1,10 @@
 class Scene:
-    def __init__(self, spritesheet):
+    def __init__(self, context):
         self.running = True
-        self.spritesheet = spritesheet
+        self.context = context
 
     def on_enter(self):
         pass
 
     def update(self, dt):
-        pass
-
-    def draw(self, surface):
         pass

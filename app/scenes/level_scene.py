@@ -8,10 +8,12 @@ from app.scenes.scene import Scene
 
 
 class LevelScene(Scene):
-    def __init__(self, spritesheet, store, board):
-        super().__init__(spritesheet)
+    def __init__(self, context, store, board):
+        super().__init__(context)
         self.store = store
         self.board = board
+        context.layers["background"].append(board)
+        context.layers["ui"].append(store)
         self.hover_pos = None
 
     def on_enter(self):
@@ -45,10 +47,6 @@ class LevelScene(Scene):
                         if self.board.grid[row][col] is None:
                             name = self.store.get_item().name
                             plant_data = SPRITES["plants"][name]
-                            self.board.grid[row][col] = PlantFactory.create_plant(PlantFactory, name, plant_data["type"], self.spritesheet)
+                            self.board.grid[row][col] = PlantFactory.create_plant(PlantFactory, name, plant_data["type"], self.context.spritesheet)
                             self.store.selected_index = None
         self.board.update_plants(dt)
-
-    def draw(self, surface):
-        self.store.draw(surface)
-        self.board.draw(surface)
