@@ -45,6 +45,8 @@ class SunProducerPlant(Plant):
         if self.state == "idle" and self.idle_timer >= self.idle_delay:
             self.idle_timer = 0
             self.idle_index = (self.idle_index + 1) % len(self.idle_sprites)
+            
+        super().update(dt)
 
     def _produce_sun(self):
         x = self.pos[0]
@@ -54,6 +56,8 @@ class SunProducerPlant(Plant):
 
     def draw(self, surface):
         if self.state == "idle":
-            self.idle_sprites[self.idle_index].draw(surface, self.pos)
+            self.sprite = self.idle_sprites[self.idle_index]
         elif self.state == "producing":
-            self.producing.draw(surface, self.pos)
+            self.sprite = self.producing
+        
+        super().draw(surface)
