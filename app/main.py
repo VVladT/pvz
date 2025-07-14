@@ -1,5 +1,3 @@
-import sys
-
 import pygame
 
 from app.core.game_context import GameContext
@@ -11,7 +9,7 @@ def main():
     context = GameContext()
     scene_manager = SceneManager(context)
     scene_manager.add_level("level_3")
-    scene_manager.set_scene("level_3")
+    scene_manager.set_scene("start")
 
     while True:
         scene_manager.update()

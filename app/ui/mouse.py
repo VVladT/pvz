@@ -19,6 +19,10 @@ class Mouse:
         if state_name in self.states:
             self.current_state = state_name
 
+    def get_scaled_pos(self):
+        mouse_pos = pygame.mouse.get_pos()
+        return mouse_pos[0] / SCALE_FACTOR, mouse_pos[1] / SCALE_FACTOR
+
     def draw(self, surface):
         mouse_pos = pygame.mouse.get_pos()
         scaled_mouse_pos = (mouse_pos[0] / SCALE_FACTOR, mouse_pos[1] / SCALE_FACTOR)

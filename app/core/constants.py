@@ -5,7 +5,7 @@ TILE_SIZE = 14
 
 BOARD_COLOR = (0, 228, 54)
 
-SPRITES = {
+DATA = {
     "close_button": {
         "frames": [(0,0)],
         "size": (8,8)
@@ -52,10 +52,12 @@ SPRITES = {
     },
     "projectiles": {
         "pea": {
+            "damage": 10,
             "frames": [(0,104)],
             "size": (4,4)
         },
         "frozen_pea": {
+            "damage": 10,
             "frames": [(4, 104)],
             "size": (4,4)
         }
@@ -71,6 +73,9 @@ SPRITES = {
     "plants": {
         "peashooter": {
             "type": "offensive",
+            "hp": 100,
+            "atack_delay": 2,
+            "num_atacks": 1,
             "shooting": {
                 "frames": [(8,26)],
                 "size": (11,13)
@@ -83,6 +88,9 @@ SPRITES = {
         },
         "sunflower": {
             "type": "sun_producer",
+            "hp": 50,
+            "produce_delay": 6,
+            "sun_value": 20,
             "producing": {
                 "frames": [(19,26)],
                 "size": (11,13)
@@ -99,6 +107,7 @@ SPRITES = {
         },
         "wallnut": {
             "type": "defensive",
+            "hp": 500,
             "full": {
                 "frames": [(41,0)],
                 "size": (11,13)
@@ -110,6 +119,29 @@ SPRITES = {
             "critical": {
                 "frames": [(41,26)],
                 "size": (11,13)
+            }
+        }
+    },
+    "zombies": {
+        "basic": {
+            "hp": 40,
+            "speed": 4,
+            "damage": 20,
+            "walking": {
+                "frames": [(8, 64), (21, 64), (34, 64)],
+                "size": (13,22)
+            },
+            "eating": {
+                "frames": [(47, 64), (60, 64)],
+                "size": (13,22)
+            },
+            "dying": {
+                "frames": [(73, 64)],
+                "size": (14,20)
+            },
+            "dead": {
+                "frames": [(87, 64)],
+                "size": (24,9)
             }
         }
     }
@@ -129,10 +161,17 @@ LEVELS = {
     },
     "level_3": {
         "store_items": [
-            {"type": "sunflower", "price": 25},
+            {"type": "sunflower", "price": 20},
             {"type": "peashooter", "price": 50},
-            {"type": "cherry_bomb", "price": 60},
             {"type": "wallnut", "price": 25}
+        ]
+    },
+    "level_4": {
+        "store_items": [
+            {"type": "sunflower", "price": 20},
+            {"type": "peashooter", "price": 50},
+            {"type": "wallnut", "price": 25},
+            {"type": "cherry_bomb", "price": 90}
         ]
     }
 }

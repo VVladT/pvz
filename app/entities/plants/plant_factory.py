@@ -5,14 +5,14 @@ from app.entities.plants.sunproducer_plant import SunProducerPlant
 
 
 class PlantFactory:
-    def create_plant(self, name, type, spritesheet):
+    def create_plant(self, name, type, context, pos, pos_in_board):
         if type == "offensive":
-            return OffensivePlant(name, spritesheet)
+            return OffensivePlant(name, context, pos, pos_in_board)
         if type == "sun_producer":
-            return SunProducerPlant(name, spritesheet)
+            return SunProducerPlant(name, context, pos, pos_in_board)
         if type == "defensive":
-            return DefensivePlant(name, spritesheet)
+            return DefensivePlant(name, context, pos, pos_in_board)
         if type == "instantaneous":
-            return InstantaneousPlant(name, spritesheet)
+            return InstantaneousPlant(name, context, pos, pos_in_board)
 
         return None

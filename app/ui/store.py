@@ -24,6 +24,11 @@ class Store:
                 self.items[i] = item
                 break
 
+    def get_item(self):
+        if self.selected_index is not None:
+            return self.items[self.selected_index]
+        return None
+
     def create_slots(self):
         x, y = self.pos
         for i in range(len(self.items)):
@@ -34,20 +39,23 @@ class Store:
         self.hover_index = None
 
         for i, slot in enumerate(self.slots):
-            if self.items[i] is not None and slot.collidepoint(mouse_pos):
+            item = self.items[i]
+            if item is not None and slot.collidepoint(mouse_pos):
                 self.hover_index = i
-                break
+                if not self.is_disabled(item):
+                    self.context.mouse.set_state("pointer")
+                return
 
     def update_select(self, mouse_pos):
         for i, slot in enumerate(self.slots):
-            if self.items[i] is not None and slot.collidepoint(mouse_pos):
-                self.selected_index = i
-                break
+            item = self.items[i]
+            if item is not None and slot.collidepoint(mouse_pos):
+                if not self.is_disabled(item):
+                    self.selected_index = i
+                return
 
-    def get_item(self):
-        if self.selected_index is not None:
-            return self.items[self.selected_index]
-        return None
+    def is_disabled(self, item):
+        return self.context.sun_manager.total < item.price
 
     def draw(self, surface):
         margin_left, margin_top = self.margin
@@ -55,41 +63,52 @@ class Store:
         store_height = self.slot_size[1]
 
         store_rect = pygame.Rect(self.pos[0] - margin_left, self.pos[1] - margin_top, store_width + margin_left * 2,
-                                 store_height + margin_top * 2)
+                                 store_height + margin_top * 2 + 1)
+        shadow_store_rect = store_rect.move(0, 1)
+        pygame.draw.rect(surface, (40, 40, 40), shadow_store_rect, border_radius=3)
         pygame.draw.rect(surface, (171, 82, 54), store_rect, border_radius=3)
 
         for i, slot in enumerate(self.slots):
+            item = self.items[i]
+
+            shadow_slot = slot.move(0, 1)
+            pygame.draw.rect(surface, (40, 40, 40), shadow_slot, border_radius=3)
+
             if self.hover_index == i:
                 pygame.draw.rect(surface, (255, 255, 255), slot.inflate(2, 2), 3, border_radius=3)
-                self.context.mouse.set_state("pointer")
 
             if self.selected_index == i:
                 pygame.draw.rect(surface, (255, 255, 0), slot.inflate(2, 2), 3, border_radius=3)
                 self.context.mouse.set_state("selected")
 
-            item = self.items[i]
             color = (123, 37, 83) if item is None else (255, 204, 170)
+
             pygame.draw.rect(surface, color, slot, border_radius=3)
-            pygame.draw.rect(surface, (0,0,0), slot,1, border_radius=3)
+            pygame.draw.rect(surface, (131, 118, 156), slot, 1, border_radius=3)
 
             if item:
                 item.draw(surface, (slot.x, slot.y), (slot.width, slot.height))
 
 class Item:
-    def __init__(self, spritesheet, name, price, icon_data):
+    def __init__(self, context, name, price, icon_data):
         self.name = name
         self.price = price
-        self.spritesheet = spritesheet
+        self.context = context
         self.icon_data = icon_data
         self.cooldown = 0
         self.font = pygame.font.Font("assets/fonts/main.ttf", 16)
 
     def draw(self, surface, pos, size):
-        icon = Sprite(self.icon_data["frames"][0], self.icon_data["size"], self.spritesheet, True)
+        icon = Sprite(self.icon_data["frames"][0], self.icon_data["size"], self.context.spritesheet, True)
 
         icon_pos = (pos[0] + (size[0] - icon.size[0]) // 2, pos[1] + (size[1] - icon.size[1]) // 2 - 3)
         icon.draw(surface, icon_pos)
 
-        price_text = self.font.render(str(self.price), True, (29, 43, 83))
+        if self.context.sun_manager.total >= self.price:
+            price_color = (29, 43, 83)
+        else:
+            price_color = (150, 0, 0)
+
+        price_text = self.font.render(str(self.price), True, price_color)
         price_pos = (pos[0] + (size[0] - price_text.get_width()) // 2 + 1, pos[1] + size[1] - price_text.get_height() - 1)
         surface.blit(price_text, price_pos)
